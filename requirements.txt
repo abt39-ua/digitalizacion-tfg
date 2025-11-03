@@ -6,3 +6,6 @@ passlib[bcrypt]
 jinja2
 python-multipart
 python-jose[cryptography]
+streamlit
+pandas
+openpyxl # Necesario para leer archivos .xlsx
