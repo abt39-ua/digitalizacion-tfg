@@ -195,53 +195,59 @@ if not data.empty:
         st.header("3. Análisis Gráfico de Respuestas")
 
         col1, col2 = st.columns(2)
+        
+        # Nombres de columna que usaremos (aseguramos mayúsculas y eliminamos espacios extra)
+        P1_COL = "P1. FORMACIÓN"
+        P8_COL = "P8. FIBRA OPTICA" # <--- CORRECCIÓN AQUI
+        P3_COL = "P3. Nº FUNCIONARIOS"
 
         # Gráfico 1: P1. Formación (Gráfico de Barras)
-        if "P1. FORMACIÓN" in data.columns:
+        if P1_COL in data.columns:
             with col1:
-                st.subheader("P1: ¿Existe Plan de Formación?")
+                st.subheader(f"{P1_COL}: ¿Existe Plan de Formación?")
                 # Contar ocurrencias, renombrar el índice para la leyenda y resetear el índice para Plotly
-                df_counts = data["P1. FORMACIÓN"].value_counts().reset_index()
+                df_counts = data[P1_COL].value_counts().reset_index()
                 df_counts.columns = ['Respuesta', 'Conteo']
                 
                 fig_bar = px.bar(
                     df_counts,
                     x='Respuesta',
                     y='Conteo',
-                    title='Distribución de Respuestas P1',
+                    title=f'Distribución de Respuestas {P1_COL}',
                     color='Respuesta',
                 )
                 st.plotly_chart(fig_bar, use_container_width=True)
         else:
-            col1.warning("Columna 'P1. FORMACIÓN' no encontrada para el análisis.")
+            col1.warning(f"Columna '{P1_COL}' no encontrada para el análisis. Columnas disponibles: {', '.join(data.columns)}")
 
         # Gráfico 2: P8. Fibra Optica (Gráfico Circular/Pie Chart)
-        if "P8 FIBRA OPTICA" in data.columns:
+        if P8_COL in data.columns:
             with col2:
-                st.subheader("P8: ¿Dispone de Fibra Óptica?")
+                st.subheader(f"{P8_COL}: ¿Dispone de Fibra Óptica?")
                 # Contar ocurrencias (ignorando NaN y convirtiendo a string)
-                df_pie = data["P8 FIBRA OPTICA"].astype(str).str.upper().value_counts().reset_index()
+                # NOTA: Usamos P8_COL
+                df_pie = data[P8_COL].astype(str).str.upper().value_counts().reset_index()
                 df_pie.columns = ['Respuesta', 'Conteo']
                 
                 fig_pie = px.pie(
                     df_pie,
                     values='Conteo',
                     names='Respuesta',
-                    title='Proporción de Fibra Óptica',
+                    title=f'Proporción de {P8_COL}',
                 )
                 st.plotly_chart(fig_pie, use_container_width=True)
         else:
-            col2.warning("Columna 'P8 FIBRA OPTICA' no encontrada para el análisis.")
+            col2.warning(f"Columna '{P8_COL}' no encontrada para el análisis. Columnas disponibles: {', '.join(data.columns)}")
 
 
         # Gráfico 3: P3. Nº funcionarios (Histograma para datos numéricos)
         # Intentamos convertir la columna a numérica y solo si tiene éxito, dibujamos
-        if "P3. Nº FUNCIONARIOS" in data.columns:
+        if P3_COL in data.columns:
             st.markdown("---")
-            st.subheader("Distribución de la Variable P3 (Nº de Funcionarios)")
+            st.subheader(f"Distribución de la Variable {P3_COL} (Nº de Funcionarios)")
             
             # Limpieza y conversión a numérico
-            data['P3_NUM'] = pd.to_numeric(data["P3. Nº FUNCIONARIOS"], errors='coerce')
+            data['P3_NUM'] = pd.to_numeric(data[P3_COL], errors='coerce')
             
             # Filtrar valores no válidos (NaN) después de la conversión
             df_hist = data.dropna(subset=['P3_NUM'])
@@ -256,6 +262,6 @@ if not data.empty:
                 fig_hist.update_layout(xaxis_title="Número de Funcionarios")
                 st.plotly_chart(fig_hist, use_container_width=True)
             else:
-                st.warning("No hay suficientes datos numéricos válidos en 'P3. Nº FUNCIONARIOS' para generar el histograma.")
+                st.warning(f"No hay suficientes datos numéricos válidos en '{P3_COL}' para generar el histograma.")
         else:
-            st.warning("Columna 'P3. Nº FUNCIONARIOS' no encontrada para el análisis.")
+            st.warning(f"Columna '{P3_COL}' no encontrada para el análisis. Columnas disponibles: {', '.join(data.columns)}")
