@@ -2,6 +2,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import plotly.express as px # Importamos Plotly para gráficos interactivos
 
 # ----------------------------------------------------------------------
 # CONFIGURACIÓN
@@ -80,7 +81,7 @@ if data.empty and not p_columns:
 municipios = data[MUNICIPIO_COL].dropna().unique().tolist()
 
 # ----------------------------------------------------------------------
-# SELECCIÓN Y FORMULARIO
+# SELECCIÓN Y FORMULARIO (Mantenido para la demo)
 # ----------------------------------------------------------------------
 
 # 1. Selector de Municipio
@@ -185,3 +186,76 @@ if not data.empty:
             use_container_width=True
         )
         st.caption("Primeras 10 filas de datos de las columnas 'P'.")
+        
+        # ----------------------------------------------------------------------
+        # ANÁLISIS GRÁFICO (NUEVA SECCIÓN)
+        # ----------------------------------------------------------------------
+        
+        st.markdown("---")
+        st.header("3. Análisis Gráfico de Respuestas")
+
+        col1, col2 = st.columns(2)
+
+        # Gráfico 1: P1. Formación (Gráfico de Barras)
+        if "P1. FORMACIÓN" in data.columns:
+            with col1:
+                st.subheader("P1: ¿Existe Plan de Formación?")
+                # Contar ocurrencias, renombrar el índice para la leyenda y resetear el índice para Plotly
+                df_counts = data["P1. FORMACIÓN"].value_counts().reset_index()
+                df_counts.columns = ['Respuesta', 'Conteo']
+                
+                fig_bar = px.bar(
+                    df_counts,
+                    x='Respuesta',
+                    y='Conteo',
+                    title='Distribución de Respuestas P1',
+                    color='Respuesta',
+                )
+                st.plotly_chart(fig_bar, use_container_width=True)
+        else:
+            col1.warning("Columna 'P1. FORMACIÓN' no encontrada para el análisis.")
+
+        # Gráfico 2: P8. Fibra Optica (Gráfico Circular/Pie Chart)
+        if "P8 FIBRA OPTICA" in data.columns:
+            with col2:
+                st.subheader("P8: ¿Dispone de Fibra Óptica?")
+                # Contar ocurrencias (ignorando NaN y convirtiendo a string)
+                df_pie = data["P8 FIBRA OPTICA"].astype(str).str.upper().value_counts().reset_index()
+                df_pie.columns = ['Respuesta', 'Conteo']
+                
+                fig_pie = px.pie(
+                    df_pie,
+                    values='Conteo',
+                    names='Respuesta',
+                    title='Proporción de Fibra Óptica',
+                )
+                st.plotly_chart(fig_pie, use_container_width=True)
+        else:
+            col2.warning("Columna 'P8 FIBRA OPTICA' no encontrada para el análisis.")
+
+
+        # Gráfico 3: P3. Nº funcionarios (Histograma para datos numéricos)
+        # Intentamos convertir la columna a numérica y solo si tiene éxito, dibujamos
+        if "P3. Nº FUNCIONARIOS" in data.columns:
+            st.markdown("---")
+            st.subheader("Distribución de la Variable P3 (Nº de Funcionarios)")
+            
+            # Limpieza y conversión a numérico
+            data['P3_NUM'] = pd.to_numeric(data["P3. Nº FUNCIONARIOS"], errors='coerce')
+            
+            # Filtrar valores no válidos (NaN) después de la conversión
+            df_hist = data.dropna(subset=['P3_NUM'])
+            
+            if not df_hist.empty:
+                fig_hist = px.histogram(
+                    df_hist,
+                    x='P3_NUM',
+                    nbins=10, # Número de contenedores/barras
+                    title='Conteo de Ayuntamientos por Rango de Funcionarios'
+                )
+                fig_hist.update_layout(xaxis_title="Número de Funcionarios")
+                st.plotly_chart(fig_hist, use_container_width=True)
+            else:
+                st.warning("No hay suficientes datos numéricos válidos en 'P3. Nº FUNCIONARIOS' para generar el histograma.")
+        else:
+            st.warning("Columna 'P3. Nº FUNCIONARIOS' no encontrada para el análisis.")
