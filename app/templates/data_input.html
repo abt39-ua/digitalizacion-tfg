@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Digital Alicante - Actualización de Datos</title>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+<script>
+tailwind.config = {
+darkMode: "class",
+theme: {
+extend: {
+colors: {
+"primary": "#1193d4",
+"background-light": "#f6f7f8",
+"background-dark": "#101c22",
+},
+fontFamily: {
+"display": ["Public Sans"]
+},
+borderRadius: {
+"DEFAULT": "0.25rem",
+"lg": "0.5rem",
+"xl": "0.75rem",
+"full": "9999px"
+},
+},
+},
+}
+</script>
+<style>
+/* Asegurar que los formularios se vean bien */
+.form-input, .form-textarea, .form-select {
+/* Usar un borde sutil y mantener la consistencia */
+border-color: rgb(203 213 225) !important; /* slate-300 */
+border-radius: 0.5rem !important; /* rounded-lg */
+padding: 0.5rem 0.75rem !important;
+width: 100% !important;
+--tw-ring-color: transparent !important;
+background-color: white !important;
+}
+.dark .form-input, .dark .form-textarea, .dark .form-select {
+background-color: rgb(30 41 59) !important; /* slate-800 */
+border-color: rgb(51 65 85) !important; /* slate-700 */
+color: white !important;
+}
+</style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="flex flex-col min-h-screen">
+<header class="bg-background-light dark:bg-background-dark border-b border-black/10 dark:border-white/10 sticky top-0 z-10">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<div class="flex items-center gap-4 text-slate-800 dark:text-white">
+<svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 18.4228L42 11.475V34.3663C42 34.7796 41.7457 35.1504 41.3601 35.2992L24 42V18.4228Z" fill="currentColor" fill-rule="evenodd"></path>
+<path clip-rule="evenodd" d="M24 8.18819L33.4123 11.574L24 15.2071L14.5877 11.574L24 8.18819ZM9 15.8487L21 20.4805V37.6263L9 32.9945V15.8487ZM27 37.6263V20.4805L39 15.8487V32.9945L27 37.6263ZM25.354 2.29885C24.4788 1.98402 23.5212 1.98402 22.646 2.29885L4.98454 8.65208C3.7939 9.08038 3 10.2097 3 11.475V34.3663C3 36.0196 4.01719 37.5026 5.55962 38.098L22.9197 44.7987C23.6149 45.0671 24.3851 45.0671 25.0803 44.7987L42.4404 38.098C43.9828 37.5026 45 36.0196 45 34.3663V11.475C45 10.2097 44.2061 9.08038 43.0155 8.65208L25.354 2.29885Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+<h1 class="text-xl font-bold text-slate-900 dark:text-white">Digital Alicante</h1>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">Projects</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">Municipalities</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">Reports</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-700/50 hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
+<svg fill="currentColor" height="20" viewBox="0 0 256 256" width="20" xmlns="http://www.w3.org/2000/svg">
+<path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"></path>
+</svg>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC-_IcATejjT3S2eGjdCbSex7zFMkctpXEmcOEPlcYVIPCOa4sUVsM8H3rWfLD-dH-3icdj_4tAfedSZaCMMXjkbIagVBryF5hyzWtWYeW5SvcLMk9E49Dh_w-bylyP1zK4Lt478wK2YHRIYFw4s4reN8f13qGt-0QVRt-Yuf2lb7MVyYETGLrfCVV8hTnOOIzY9Rb4Tofpm1mYQxPjigDyYDsvlWOtpWaCbc4ycbnTZ3I33K_kSd4M3hArgOF0mDm6nNR10zh6eAoW");'></div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="max-w-2xl mx-auto">
+<div class="mb-8">
+<h2 class="text-3xl font-bold text-slate-900 dark:text-white">Actualización de los datos de digitalización de tu municipio</h2>
+<p class="mt-2 text-slate-600 dark:text-slate-400">Introduce los datos actualizados de tu municipio.</p>
+</div>
+<form method="post" class="space-y-6">
+<div>
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+{{ ayto.nombre }} ({{ ayto.codigo }})
+</h2>
+<p class="text-3xl font-extrabold text-primary">
+Nivel de digitalización: {{ nivel_digitalizacion }}
+</p>
+<p class="mt-1 text-slate-600 dark:text-slate-400">
+Actualiza la información digital del municipio.
+</p>
+{% if msg %}
+<div class="mt-3 p-3 rounded-lg bg-green-100 text-green-800 border border-green-200">{{ msg }}</div>
+{% endif %}
+</div>
+
+<!-- Desplegable 1 (Obligatorio) -->
+<div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700">
+<label for="col1" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Campo 1 (Obligatorio)</label>
+<select id="col1" name="col1" class="form-select mb-3">
+<option value="">-- Seleccione una columna --</option>
+{% for col in p_columns %}
+<!-- La lógica para 'selected' es más compleja aquí, no la implementaremos por ahora -->
+<option value="{{ col }}">{{ col }}</option>
+{% endfor %}
+</select>
+
+<label for="val1" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mt-3 mb-1.5">Valor Actual / Nuevo Valor</label>
+<!-- Usamos el valor guardado en BBDD 'current' para precargar -->
+<textarea id="val1" name="val1" rows="2" class="form-textarea">{{ current.get(col1_name) if col1_name else '' }}</textarea>
+</div>
+
+<!-- Desplegable 2 (Opcional) -->
+<div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700">
+<label for="col2" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Campo 2 (Opcional)</label>
+<select id="col2" name="col2" class="form-select mb-3">
+<option value="">-- Selecciona una columna --</option>
+{% for col in p_columns %}
+<option value="{{ col }}">{{ col }}</option>
+{% endfor %}
+</select>
+<label for="val2" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mt-3 mb-1.5">Valor</label>
+<textarea id="val2" name="val2" rows="2" class="form-textarea"></textarea>
+</div>
+
+<!-- Desplegable 3 (Opcional) -->
+<div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700">
+<label for="col3" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Campo 3 (Opcional)</label>
+<select id="col3" name="col3" class="form-select mb-3">
+<option value="">-- Selecciona una columna --</option>
+{% for col in p_columns %}
+<option value="{{ col }}">{{ col }}</option>
+{% endfor %}
+</select>
+<label for="val3" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mt-3 mb-1.5">Valor</label>
+<textarea id="val3" name="val3" rows="2" class="form-textarea"></textarea>
+</div>
+
+<div class="flex justify-end pt-4">
+<button type="submit" class="bg-primary text-white font-bold py-2 px-6 rounded-lg hover:bg-primary/90 transition-colors shadow-md hover:shadow-lg">
+Guardar cambios
+</button>
+</div>
+</form>
+
+</div>
+</main>
+</div>
+
+</body></html>

@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Base de datos (CRUCIAL: No subas la BBDD)
+data/ayuntamientos.db
+
+# Otros
+.DS_Store
+*.log
+```
